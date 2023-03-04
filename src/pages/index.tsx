@@ -1,10 +1,11 @@
-import Head from 'next/head'
-import { Button } from '@chakra-ui/react'
-import { css } from '@emotion/react'
-import {Fragment} from 'react'
+import Head from "next/head";
+import { Button } from "@chakra-ui/react";
+import { css } from "@emotion/react";
+import { Fragment } from "react";
 
 const styles = css`
-  color: red;`
+  color: red;
+`;
 
 export default function Home() {
   return (
@@ -17,8 +18,8 @@ export default function Home() {
       </Head>
       <main>
         <p css={styles}>テキスト</p>
-        <Button colorScheme='blue'>Button</Button>
+        <Button colorScheme="blue">Button</Button>
       </main>
     </Fragment>
-  )
+  );
 }
