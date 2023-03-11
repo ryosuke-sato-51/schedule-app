@@ -3,6 +3,8 @@ import Head from "next/head";
 import { Button } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
+import { TodoList } from "@/features/Todo";
+
 const styles = css`
   color: red;
 `;
@@ -14,7 +16,7 @@ export default function User() {
         <title>ユーザーページ</title>
         <meta name="description" content="" />
       </Head>
-      <p css={styles}>ユーザーページです。</p>
+      <TodoList />
     </>
   );
 }

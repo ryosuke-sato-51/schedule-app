@@ -1,2 +1,2 @@
-export * from "./providers";
+export * from "./Providers";
 export * from "./ChakraProvider";
