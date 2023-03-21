@@ -8,9 +8,11 @@ import { Loading } from "@/components/elements";
 const ListData = [
   {
     title: "やること1",
+    description: "説明文が入ります",
   },
   {
     title: "やること2",
+    description: "説明文が入ります",
   },
 ];
 
@@ -27,8 +29,8 @@ export const TodoList = () => {
     <>
       {list ? (
         <List>
-          {list.map(({ title }, index) => (
-            <TodoItem key={index} title={title} />
+          {list.map(({ title, description }, index) => (
+            <TodoItem key={index} title={title} description={description} />
           ))}
         </List>
       ) : (
