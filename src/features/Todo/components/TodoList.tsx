@@ -4,26 +4,25 @@ import { List, Box } from "@chakra-ui/react";
 
 import { TodoItem, TodoItemProps } from "./TodoItem";
 import { Loading } from "@/components/elements";
-
-const ListData = [
-  {
-    title: "やること1",
-    description: "説明文が入ります",
-  },
-  {
-    title: "やること2",
-    description: "説明文が入ります",
-  },
-];
+import { useGetTodos } from "../hooks/todos";
 
 type ListDataType = Array<TodoItemProps>;
 
 export const TodoList = () => {
-  const [list, setList] = useState<ListDataType | null>(null);
+  const [list, setList] = useState<ListDataType | undefined>(undefined);
+  const { data: todos, isLoading } = useGetTodos();
 
   useEffect(() => {
-    setList(ListData);
-  }, []);
+    if (isLoading) return;
+    const SliceData = todos?.slice(0, 2);
+    const DummyListData = SliceData?.map((todo) => {
+      return {
+        title: todo.title,
+        description: todo.body,
+      };
+    });
+    setList(DummyListData);
+  }, [isLoading]);
 
   return (
     <>
