@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef, KeyboardEvent, useEffect } from "react";
 import { ListItem, Text, Flex, Box } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { css } from "@emotion/react";
@@ -25,9 +25,13 @@ export const TodoItem = ({ title: titleProp, description }: TodoItemProps) => {
   const [title, setTitle] = useState(titleProp);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [isShowDescription, setIsShowDescription] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const startEditingTitle = () => {
     setIsEditingTitle(true);
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 10);
   };
 
   const endEditingTitle = () => {
@@ -36,6 +40,11 @@ export const TodoItem = ({ title: titleProp, description }: TodoItemProps) => {
 
   const toggleDescription = () => {
     setIsShowDescription(!isShowDescription);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing || e.key !== "Enter") return;
+    endEditingTitle();
   };
 
   return (
@@ -48,7 +57,12 @@ export const TodoItem = ({ title: titleProp, description }: TodoItemProps) => {
         </button>
         {isEditingTitle ? (
           <Flex flex={"1"}>
-            <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+            <Input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              onKeyDown={handleKeyDown}
+              ref={inputRef}
+            />
             <Button colorScheme={"teal"} ml={"10px"} onClick={endEditingTitle}>
               保存
             </Button>
