@@ -1,8 +1,18 @@
 import { forwardRef } from "react";
-import { Input as ChakraInput, InputProps } from "@chakra-ui/react";
+import {
+  Input as ChakraInput,
+  InputProps as ChakraInputProps,
+} from "@chakra-ui/react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
-export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => (
-  <ChakraInput {...props} ref={ref} />
-));
+type InputProps = ChakraInputProps & {
+  register?: UseFormRegisterReturn;
+};
+
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ register, ...props }, ref) => (
+    <ChakraInput {...props} ref={ref} {...register} />
+  )
+);
 
 Input.displayName = "Input";

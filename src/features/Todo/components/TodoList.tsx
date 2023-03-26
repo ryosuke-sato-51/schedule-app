@@ -2,8 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { List, Box } from "@chakra-ui/react";
 
-import { TodoItem, TodoItemProps } from "./TodoItem";
-import { Loading } from "@/components/elements";
+import { TodoItem, TodoItemProps, AddTodoModal } from "./index";
+import { Button, Loading } from "@/components/elements";
 import { useGetTodos } from "../hooks/todos";
 
 type ListDataType = Array<TodoItemProps>;
@@ -27,11 +27,22 @@ export const TodoList = () => {
   return (
     <>
       {list ? (
-        <List>
-          {list.map(({ title, description }, index) => (
-            <TodoItem key={index} title={title} description={description} />
-          ))}
-        </List>
+        <>
+          <List>
+            {list.map(({ title, description }, index) => (
+              <TodoItem key={index} title={title} description={description} />
+            ))}
+          </List>
+          <Box mt={"20px"}>
+            <AddTodoModal
+              triggerButton={(onClick) => (
+                <Box textAlign={"right"}>
+                  <Button onClick={onClick}>追加する</Button>
+                </Box>
+              )}
+            />
+          </Box>
+        </>
       ) : (
         <Box textAlign={"center"}>
           <Loading />
